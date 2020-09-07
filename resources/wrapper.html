@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="main.css">
     <script>
         function toggle_connectors_fields() {
-            const use_external_holder = document.getElementById("external-holder").value;
-            const impacted_ids = ["trrs-connector", "usb-hole"];
+            const use_external_holder = document.getElementById("connector.external").value;
+            const impacted_ids = ["connector.trrs", "connector.micro-usb"];
             if (use_external_holder === "true") {
                 impacted_ids.forEach(id => {
                     document.querySelector("label[for='" + id + "']").style.display = 'none'; // Hide the label
