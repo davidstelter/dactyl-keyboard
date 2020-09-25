@@ -9,6 +9,41 @@
     <link rel="stylesheet" href="milligram.min.css">
     <link rel="stylesheet" href="main.css">
     <script>
+        const π = Math.PI;
+        function rad2deg(rad) {
+            if (typeof rad === 'string') {
+                rad = parseInt(rad);
+            }
+
+            return (π / rad) * (180 / π);
+        }
+
+        function change_curve_alpha(evt) {
+            const degLabel = document.getElementById('curve.alpha.degrees');
+            degLabel.innerText = rad2deg(evt.target.value) + " deg";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('curve.alpha').onchange = change_curve_alpha;
+        });
+
+        function toggle_conn_holder_fields() {
+            const use_none = document.getElementById("connector.none").value;
+            const impacted_ids = ["connector.trrs", "connector.micro-usb", "connector.external"];
+            if (use_none === "true") {
+                impacted_ids.forEach(id => {
+                    document.querySelector("label[for='" + id + "']").style.display = 'none'; // Hide the label
+                    document.querySelector("select[id='" + id + "']").style.display = 'none'; // Hide the select
+                });
+
+            } else {
+                impacted_ids.forEach(id => {
+                    document.querySelector("label[for='" + id + "']").style.display = 'block'; // Show the label
+                    document.querySelector("select[id='" + id + "']").style.display = 'block'; // Hide the select
+                });
+            }
+        }
+
         function toggle_connectors_fields() {
             const use_external_holder = document.getElementById("connector.external").value;
             const impacted_ids = ["connector.trrs", "connector.micro-usb"];

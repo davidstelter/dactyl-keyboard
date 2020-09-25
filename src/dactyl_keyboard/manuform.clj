@@ -1327,6 +1327,7 @@
 (defn model-right [c]
   (let [use-inner-column?          (get c :configuration-use-inner-column?)
         show-caps?                 (get c :configuration-show-caps?)
+        use-external-none?         (get c :configuration-use-external-none?)
         use-external-holder?       (get c :configuration-use-external-holder?)
         use-promicro-usb-hole?     (get c :configuration-use-promicro-usb-hole?)
         use-screw-inserts?         (get c :configuration-use-screw-inserts?)
@@ -1336,11 +1337,12 @@
      (union
       (if show-caps? (caps c) ())
       (if show-caps? (thumbcaps c) ())
+        (if-not use-external-none?
       (if-not use-external-holder?
         (union
          (if use-wire-post? (wire-posts c) ())
          (if-not use-trrs? (rj9-holder frj9-start c) ()))
-        ())
+            ()))
       (if use-inner-column? (inner-key-holes c) ())
       (key-holes c)
       (thumb c)
@@ -1349,6 +1351,7 @@
       (difference
        (union (case-walls c)
               (if use-screw-inserts? (screw-insert-outers screw-placement c) ())
+                 (if-not use-external-none?
               (if-not use-external-holder?
                 (union
                  (if use-promicro-usb-hole?
@@ -1357,8 +1360,9 @@
                    (union (usb-holder fusb-holder-position c)
                           #_(pro-micro-holder c)))
                  (if use-trrs? (trrs-holder c) ()))
-                ()))
+                     ())))
        (if use-screw-inserts? (screw-insert-holes screw-placement c) ())
+          (if-not use-external-none?
        (if-not use-external-holder?
          (union
           (if use-trrs? (trrs-holder-hole c) (rj9-space frj9-start c))
@@ -1366,7 +1370,7 @@
             (union (trrs-usb-holder-space c)
                    (trrs-usb-jack c))
             (usb-holder-hole fusb-holder-position c)))
-         (external-holder-space c))))
+              (external-holder-space c)))))
      (translate [0 0 -60] (cube 350 350 120)))))
 
 (defn model-left [c]

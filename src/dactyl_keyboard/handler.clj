@@ -73,6 +73,7 @@
         param-centercol             (parse-int (get p "curve.centercol"))
         param-tenting-angle         (parse-int (get p "curve.tenting"))
 
+        param-use-connector-none   (parse-bool (get p "connector.none"))
         param-use-external-holder   (parse-bool (get p "connector.external"))
         param-trrs-connector        (parse-bool (get p "connector.trrs"))
         param-use-promicro-usb-hole (parse-bool (get p "connector.micro-usb"))
@@ -121,6 +122,7 @@
                                      :configuration-tenting-angle          (if generate-json? param-tenting-angle (/ pi param-tenting-angle))
                                      :configuration-plate-projection?      generate-plate?
 
+           :configuration-use-external-none?     param-use-connector-none
                                      :configuration-use-external-holder?   param-use-external-holder
                                      :configuration-use-trrs?              param-trrs-connector
                                      :configuration-use-promicro-usb-hole? param-use-promicro-usb-hole
